@@ -7,13 +7,13 @@ LifeLog is a personal life logging application built with **React Native (Expo)*
 - **🏠 Home Dashboard**: Get a quick overview of your weekly activity and recent highlights.
 - **📅 Unified Timeline**: View tasks, schedules, and photos in a single, chronological list.
 - **✍️ Easy Logging**: Quickly add new entries:
-    - **Task**: To-do items or completed activities.
-    - **Schedule**: Future appointments or events.
-    - **Photo**: Capture moments directly within the app.
+  - **Task**: To-do items or completed activities.
+  - **Schedule**: Future appointments or events.
+  - **Photo**: Capture moments directly within the app.
 - **🎨 Modern UI/UX**:
-    - "Soft Modern" design system.
-    - **Dark Mode** support (System, Light, Dark options).
-    - Smooth animations and haptic feedback.
+  - "Soft Modern" design system.
+  - **Dark Mode** support (System, Light, Dark options).
+  - Smooth animations and haptic feedback.
 - **🔒 Private & Offline**: All data is stored locally on your device. No internet connection required.
 
 ## 🛠 Tech Stack
@@ -55,12 +55,12 @@ LifeLog is a personal life logging application built with **React Native (Expo)*
 ### Running on Device
 
 - **Android**: Press `a` in the terminal (requires Android Emulator or connected device).
-- **iOS**: Press `i` in the terminal (requires iOS Simulator or MacOS).
+- **iOS**: Press `i` in the terminal (requires iOS Simulator or macOS).
 - **Physical Device**: Scan the QR code displayed in the terminal using the Expo Go app.
 
 ## 📂 Project Structure
 
-```
+```text
 lifelog_app/
 ├── app/                 # Expo Router screens
 │   ├── (tabs)/          # Main tab navigation
@@ -79,7 +79,7 @@ lifelog_app/
 
 ## 🤝 Contributing
 
-Contributions are welcome! Please feel free to submit a Pull Request.
+We welcome contributions; please submit a pull request.
 
 ## 📄 License
 
