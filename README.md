@@ -1,50 +1,86 @@
-# Welcome to your Expo app 👋
+# LifeLog App 📱
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+LifeLog is a personal life logging application built with **React Native (Expo)**. It allows you to track your daily activities, schedules, and photos in a unified, chronological timeline.
 
-## Get started
+## ✨ Features
 
-1. Install dependencies
+- **🏠 Home Dashboard**: Get a quick overview of your weekly activity and recent highlights.
+- **📅 Unified Timeline**: View tasks, schedules, and photos in a single, chronological list.
+- **✍️ Easy Logging**: Quickly add new entries:
+    - **Task**: To-do items or completed activities.
+    - **Schedule**: Future appointments or events.
+    - **Photo**: Capture moments directly within the app.
+- **🎨 Modern UI/UX**:
+    - "Soft Modern" design system.
+    - **Dark Mode** support (System, Light, Dark options).
+    - Smooth animations and haptic feedback.
+- **🔒 Private & Offline**: All data is stored locally on your device. No internet connection required.
 
-   ```bash
-   npm install
-   ```
+## 🛠 Tech Stack
 
-2. Start the app
+- **Framework**: [Expo](https://expo.dev/) (Managed Workflow)
+- **Language**: [TypeScript](https://www.typescriptlang.org/)
+- **Routing**: [Expo Router](https://docs.expo.dev/router/introduction/)
+- **State Management**: [Zustand](https://github.com/pmndrs/zustand)
+- **Persistence**: [AsyncStorage](https://react-native-async-storage.github.io/async-storage/)
+- **Icons**: SF Symbols (iOS) / Material Icons (Android) via `IconSymbol` wrapper
 
-   ```bash
-   npx expo start
-   ```
+## 🚀 Getting Started
 
-In the output, you'll find options to open the app in a
+### Prerequisites
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+- [Node.js](https://nodejs.org/) (LTS recommended)
+- [Expo Go](https://expo.dev/client) app installed on your iOS or Android device.
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+### Installation
 
-## Get a fresh project
+1.  Clone the repository:
+    ```bash
+    git clone https://github.com/your-username/lifelog-app.git
+    cd lifelog-app
+    ```
 
-When you're ready, run:
+2.  Install dependencies:
+    ```bash
+    npm install
+    # or
+    yarn install
+    ```
 
-```bash
-npm run reset-project
+3.  Start the development server:
+    ```bash
+    npx expo start -c
+    ```
+
+### Running on Device
+
+- **Android**: Press `a` in the terminal (requires Android Emulator or connected device).
+- **iOS**: Press `i` in the terminal (requires iOS Simulator or MacOS).
+- **Physical Device**: Scan the QR code displayed in the terminal using the Expo Go app.
+
+## 📂 Project Structure
+
+```
+lifelog_app/
+├── app/                 # Expo Router screens
+│   ├── (tabs)/          # Main tab navigation
+│   │   ├── index.tsx    # Home Dashboard
+│   │   ├── timeline.tsx # Timeline View
+│   │   ├── add.tsx      # Add Log Screen
+│   │   └── settings.tsx # Settings Screen
+│   ├── _layout.tsx      # Root layout
+│   └── ...
+├── components/          # Reusable UI components
+├── constants/           # Theme colors and config
+├── hooks/               # Custom hooks (e.g., useColorScheme)
+├── store/               # State management (Zustand)
+└── assets/              # Images and fonts
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+## 🤝 Contributing
 
-## Learn more
+Contributions are welcome! Please feel free to submit a Pull Request.
 
-To learn more about developing your project with Expo, look at the following resources:
+## 📄 License
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+This project is licensed under the MIT License.
