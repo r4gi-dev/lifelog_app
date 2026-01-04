@@ -2,8 +2,9 @@ import { IconSymbol } from '@/components/ui/icon-symbol';
 import { Colors } from '@/constants/theme';
 import { useColorScheme } from '@/hooks/use-color-scheme';
 import { ThemeMode, useThemeStore } from '@/store/themeStore';
-import React from 'react';
+import Constants from 'expo-constants';
 import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+
 
 export default function SettingsScreen() {
     const colorScheme = useColorScheme() ?? 'light';
@@ -37,7 +38,7 @@ export default function SettingsScreen() {
                                 onPress={() => handleModeSelect(m.value)}
                             >
                                 <View style={styles.optionLeft}>
-                                    {/* Placeholder icons - ideally map these in IconSymbol too if needed */}
+                                    <IconSymbol name={m.icon as any} size={20} color={theme.icon} />
                                     <Text style={[styles.optionLabel, { color: theme.text }]}>{m.label}</Text>
                                 </View>
                                 {isSelected && (
@@ -50,7 +51,7 @@ export default function SettingsScreen() {
             </View>
 
             <View style={styles.footer}>
-                <Text style={[styles.version, { color: theme.icon }]}>LifeLog v1.0.0</Text>
+                <Text style={[styles.version, { color: theme.icon }]}>LifeLog v{Constants.expoConfig?.version ?? '1.0.0'}</Text>
             </View>
         </ScrollView>
     );
