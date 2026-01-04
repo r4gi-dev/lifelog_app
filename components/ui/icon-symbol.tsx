@@ -32,6 +32,7 @@ const MAPPING = {
   'photo': 'image',
   'chart.bar.fill': 'bar-chart',
   'star.fill': 'star',
+  'gear': 'settings',
 } as IconMapping;
 
 /**
