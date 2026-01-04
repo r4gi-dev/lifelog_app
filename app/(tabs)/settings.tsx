@@ -16,7 +16,7 @@ export default function SettingsScreen() {
     };
 
     const modes: { label: string; value: ThemeMode; icon: string }[] = [
-        { label: 'Light', value: 'light', icon: 'sun.max.fill' },
+        { label: 'Light', value: 'light', icon: 'lightbulb.fill' },
         { label: 'Dark', value: 'dark', icon: 'moon.fill' },
         { label: 'System', value: 'system', icon: 'gear' }, // Using gear as generic system icon
     ];

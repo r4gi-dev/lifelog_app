@@ -6,6 +6,7 @@ import { useLifeLogStore } from '@/store';
 import { useRouter } from 'expo-router';
 import React from 'react';
 import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import Animated, { FadeInUp } from 'react-native-reanimated';
 
 export default function HomeScreen() {
   const logs = useLifeLogStore((state) => state.logs);
@@ -54,13 +55,16 @@ export default function HomeScreen() {
             const isToday = index === 6;
             return (
               <View key={day.date} style={styles.barContainer}>
-                <View style={[
-                  styles.bar,
-                  {
-                    height: `${Math.max(height, 10)}%`,
-                    backgroundColor: isToday ? theme.tint : theme.border
-                  }
-                ]} />
+                <Animated.View
+                  entering={FadeInUp.delay(index * 100).springify()}
+                  style={[
+                    styles.bar,
+                    {
+                      height: `${Math.max(height, 10)}%`,
+                      backgroundColor: isToday ? theme.tint : theme.border
+                    }
+                  ]}
+                />
                 <Text style={[styles.dayLabel, { color: theme.icon }]}>
                   {new Date(day.date).toLocaleDateString('en-US', { weekday: 'narrow' })}
                 </Text>
