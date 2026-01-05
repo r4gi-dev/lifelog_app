@@ -37,3 +37,5 @@ Customize your experience in the **Settings** tab.
 ## ☁️ Backup & Privacy
 - **Offline First**: All data is stored locally on your device.
 - **Privacy**: No data is sent to the cloud. You are in complete control.
+
+## Tset
