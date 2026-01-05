@@ -1,18 +1,31 @@
+import { FilterChips, FilterType } from '@/components/FilterChips';
 import { LogCard } from '@/components/LogCard';
+import { IconSymbol } from '@/components/ui/icon-symbol';
 import { Colors } from '@/constants/theme';
 import { useColorScheme } from '@/hooks/use-color-scheme';
 import { useLifeLogStore } from '@/store';
 import { LifeLog } from '@/types';
-import React from 'react';
-import { SectionList, StatusBar, StyleSheet, Text, View } from 'react-native';
+import React, { useState } from 'react';
+import { SectionList, StatusBar, StyleSheet, Text, TextInput, View } from 'react-native';
 
 export default function TimelineScreen() {
     const logs = useLifeLogStore((state) => state.logs);
     const colorScheme = useColorScheme() ?? 'light';
     const theme = Colors[colorScheme];
 
+    const [searchQuery, setSearchQuery] = useState('');
+    const [filterType, setFilterType] = useState<FilterType>('all');
+
+    // Filter logs logic
+    const filteredLogs = logs.filter((log) => {
+        const matchesType = filterType === 'all' || log.type === filterType;
+        const matchesSearch = log.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+            (log.description?.toLowerCase().includes(searchQuery.toLowerCase()) ?? false);
+        return matchesType && matchesSearch;
+    });
+
     // Group logs by date
-    const groupedLogs = logs.reduce((acc, log) => {
+    const groupedLogs = filteredLogs.reduce((acc, log) => {
         const date = log.date;
         if (!acc[date]) {
             acc[date] = [];
@@ -32,6 +45,24 @@ export default function TimelineScreen() {
     return (
         <View style={[styles.container, { backgroundColor: theme.background }]}>
             <StatusBar barStyle={colorScheme === 'dark' ? 'light-content' : 'dark-content'} />
+
+            <View style={styles.header}>
+                <View style={[styles.searchContainer, { backgroundColor: theme.card, borderColor: theme.border }]}>
+                    <IconSymbol name="magnifyingglass" size={20} color={theme.icon} />
+                    <TextInput
+                        style={[styles.searchInput, { color: theme.text }]}
+                        placeholder="Search logs..."
+                        placeholderTextColor={theme.icon}
+                        value={searchQuery}
+                        onChangeText={setSearchQuery}
+                    />
+                    {searchQuery.length > 0 && (
+                        <Text style={{ color: theme.tint, fontWeight: '600' }} onPress={() => setSearchQuery('')}>Clear</Text>
+                    )}
+                </View>
+                <FilterChips selected={filterType} onSelect={setFilterType} />
+            </View>
+
             <SectionList
                 sections={sections}
                 keyExtractor={(item) => item.id}
@@ -51,8 +82,8 @@ export default function TimelineScreen() {
                 stickySectionHeadersEnabled={false}
                 ListEmptyComponent={
                     <View style={styles.emptyContainer}>
-                        <Text style={[styles.emptyText, { color: theme.text }]}>No logs yet.</Text>
-                        <Text style={[styles.emptySubText, { color: theme.icon }]}>Tap the + button to add one.</Text>
+                        <Text style={[styles.emptyText, { color: theme.text }]}>No logs found.</Text>
+                        <Text style={[styles.emptySubText, { color: theme.icon }]}>Try adjusting your search or filters.</Text>
                     </View>
                 }
             />
@@ -63,6 +94,25 @@ export default function TimelineScreen() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+    },
+    header: {
+        paddingTop: 16,
+        paddingBottom: 8,
+        gap: 12,
+    },
+    searchContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginHorizontal: 16,
+        paddingHorizontal: 12,
+        paddingVertical: 10,
+        borderRadius: 12,
+        borderWidth: 1,
+        gap: 8,
+    },
+    searchInput: {
+        flex: 1,
+        fontSize: 16,
     },
     listContent: {
         padding: 16,
