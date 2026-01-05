@@ -5,8 +5,8 @@ import { Colors } from '@/constants/theme';
 import { useColorScheme } from '@/hooks/use-color-scheme';
 import { useLifeLogStore } from '@/store';
 import { LifeLog } from '@/types';
-import React, { useState } from 'react';
-import { SectionList, StatusBar, StyleSheet, Text, TextInput, View } from 'react-native';
+import React, { useMemo, useState } from 'react';
+import { SectionList, StatusBar, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 
 export default function TimelineScreen() {
     const logs = useLifeLogStore((state) => state.logs);
@@ -17,12 +17,16 @@ export default function TimelineScreen() {
     const [filterType, setFilterType] = useState<FilterType>('all');
 
     // Filter logs logic
-    const filteredLogs = logs.filter((log) => {
-        const matchesType = filterType === 'all' || log.type === filterType;
-        const matchesSearch = log.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-            (log.description?.toLowerCase().includes(searchQuery.toLowerCase()) ?? false);
-        return matchesType && matchesSearch;
-    });
+    const filteredLogs = useMemo(() => {
+        return logs.filter((log) => {
+            const matchesType = filterType === 'all' || log.type === filterType;
+            if (!matchesType) return false;
+
+            const query = searchQuery.toLowerCase();
+            const matchesSearch = (log.title?.toLowerCase().includes(query) ?? false) ||
+                (log.description?.toLowerCase().includes(query) ?? false);
+        });
+    }, [logs, filterType, searchQuery]);
 
     // Group logs by date
     const groupedLogs = filteredLogs.reduce((acc, log) => {
@@ -57,7 +61,9 @@ export default function TimelineScreen() {
                         onChangeText={setSearchQuery}
                     />
                     {searchQuery.length > 0 && (
-                        <Text style={{ color: theme.tint, fontWeight: '600' }} onPress={() => setSearchQuery('')}>Clear</Text>
+                        <TouchableOpacity onPress={() => setSearchQuery('')}>
+                            <Text style={{ color: theme.tint, fontWeight: '600' }}>Clear</Text>
+                        </TouchableOpacity>
                     )}
                 </View>
                 <FilterChips selected={filterType} onSelect={setFilterType} />

@@ -28,6 +28,7 @@ const MAPPING = {
   'sun.max.fill': 'wb_sunny',
   'moon.fill': 'brightness-3', // Crescent moon
   'lightbulb.fill': 'lightbulb',
+  'magnifyingglass': 'search',
 } as const; // Changed to 'as const' for type inference, assuming IconMapping is not explicitly defined elsewhere.
 
 export type IconSymbolName = keyof typeof MAPPING;

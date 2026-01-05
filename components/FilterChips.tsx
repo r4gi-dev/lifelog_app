@@ -11,16 +11,16 @@ interface FilterChipsProps {
     onSelect: (type: FilterType) => void;
 }
 
+export const FILTER_OPTIONS: { label: string; value: FilterType }[] = [
+    { label: 'All', value: 'all' },
+    { label: 'Tasks', value: 'task' },
+    { label: 'Schedule', value: 'schedule' },
+    { label: 'Photos', value: 'photo' },
+];
+
 export function FilterChips({ selected, onSelect }: FilterChipsProps) {
     const colorScheme = useColorScheme() ?? 'light';
     const theme = Colors[colorScheme];
-
-    const options: { label: string; value: FilterType }[] = [
-        { label: 'All', value: 'all' },
-        { label: 'Tasks', value: 'task' },
-        { label: 'Schedule', value: 'schedule' },
-        { label: 'Photos', value: 'photo' },
-    ];
 
     return (
         <ScrollView
@@ -28,11 +28,14 @@ export function FilterChips({ selected, onSelect }: FilterChipsProps) {
             showsHorizontalScrollIndicator={false}
             contentContainerStyle={styles.container}
         >
-            {options.map((opt) => {
+            {FILTER_OPTIONS.map((opt) => {
                 const isActive = selected === opt.value;
+                const textColor = isActive ? theme.onTint : theme.text;
                 return (
                     <TouchableOpacity
                         key={opt.value}
+                        accessibilityRole="button"
+                        accessibilityState={{ selected: isActive }}
                         style={[
                             styles.chip,
                             {
@@ -44,7 +47,7 @@ export function FilterChips({ selected, onSelect }: FilterChipsProps) {
                     >
                         <Text style={[
                             styles.label,
-                            { color: isActive ? '#FFFFFF' : theme.text }
+                            { color: textColor }
                         ]}>
                             {opt.label}
                         </Text>
