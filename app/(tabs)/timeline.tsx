@@ -25,6 +25,7 @@ export default function TimelineScreen() {
             const query = searchQuery.toLowerCase();
             const matchesSearch = (log.title?.toLowerCase().includes(query) ?? false) ||
                 (log.description?.toLowerCase().includes(query) ?? false);
+            return matchesSearch;
         });
     }, [logs, filterType, searchQuery]);
 
