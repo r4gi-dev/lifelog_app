@@ -3,6 +3,7 @@ import { Colors } from '@/constants/theme';
 import { useColorScheme } from '@/hooks/use-color-scheme';
 import { LifeLogType } from '@/types';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 interface TypeSelectorProps {
@@ -13,6 +14,7 @@ interface TypeSelectorProps {
 export function TypeSelector({ selected, onSelect }: TypeSelectorProps) {
     const colorScheme = useColorScheme() ?? 'light';
     const theme = Colors[colorScheme];
+    const { t } = useTranslation();
 
     const types: LifeLogType[] = ['task', 'schedule', 'photo'];
 
@@ -26,14 +28,14 @@ export function TypeSelector({ selected, onSelect }: TypeSelectorProps) {
 
     return (
         <View style={styles.container}>
-            {types.map((t) => {
-                const isSelected = selected === t;
-                const color = theme.types[t];
+            {types.map((typeKey) => {
+                const isSelected = selected === typeKey;
+                const color = theme.types[typeKey];
 
                 return (
                     <TouchableOpacity
-                        key={t}
-                        onPress={() => onSelect(t)}
+                        key={typeKey}
+                        onPress={() => onSelect(typeKey)}
                         style={[
                             styles.option,
                             { backgroundColor: isSelected ? color : theme.card },
@@ -43,14 +45,14 @@ export function TypeSelector({ selected, onSelect }: TypeSelectorProps) {
                     >
                         <IconSymbol
                             size={20}
-                            name={getIcon(t)}
+                            name={getIcon(typeKey)}
                             color={isSelected ? '#FFF' : color}
                         />
                         <Text style={[
                             styles.label,
                             { color: isSelected ? '#FFF' : theme.icon }
                         ]}>
-                            {t.charAt(0).toUpperCase() + t.slice(1)}
+                            {t(`timeline.filter.${typeKey}`)}
                         </Text>
                     </TouchableOpacity>
                 );

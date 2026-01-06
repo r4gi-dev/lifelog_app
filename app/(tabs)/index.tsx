@@ -3,8 +3,10 @@ import { IconSymbol } from '@/components/ui/icon-symbol';
 import { Colors } from '@/constants/theme';
 import { useColorScheme } from '@/hooks/use-color-scheme';
 import { useLifeLogStore } from '@/store';
+import { useLanguageStore } from '@/store/languageStore';
 import { useRouter } from 'expo-router';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import Animated, { FadeInUp } from 'react-native-reanimated';
 
@@ -13,6 +15,8 @@ export default function HomeScreen() {
   const colorScheme = useColorScheme() ?? 'light';
   const theme = Colors[colorScheme];
   const router = useRouter();
+  const { t } = useTranslation();
+  const effectiveLanguage = useLanguageStore((state) => state.getEffectiveLanguage)();
 
   // 1. Calculate Weekly Stats
   const today = new Date();
@@ -47,7 +51,7 @@ export default function HomeScreen() {
       <View style={[styles.section, styles.chartContainer, { backgroundColor: theme.card }]}>
         <View style={styles.sectionHeader}>
           <IconSymbol name="chart.bar.fill" size={20} color={theme.tint} />
-          <Text style={[styles.sectionTitle, { color: theme.text }]}>Weekly Activity</Text>
+          <Text style={[styles.sectionTitle, { color: theme.text }]}>{t('home.weeklyActivity')}</Text>
         </View>
         <View style={styles.chart}>
           {stats.map((day, index) => {
@@ -66,7 +70,7 @@ export default function HomeScreen() {
                   ]}
                 />
                 <Text style={[styles.dayLabel, { color: theme.icon }]}>
-                  {new Date(day.date).toLocaleDateString('en-US', { weekday: 'narrow' })}
+                  {new Date(day.date).toLocaleDateString(effectiveLanguage === 'ja' ? 'ja-JP' : 'en-US', { weekday: 'narrow' })}
                 </Text>
               </View>
             );
@@ -78,12 +82,12 @@ export default function HomeScreen() {
       <View style={styles.section}>
         <View style={[styles.sectionHeader, { marginBottom: 12 }]}>
           <IconSymbol name="star.fill" size={20} color="#FFD700" />
-          <Text style={[styles.sectionTitle, { color: theme.text }]}>Recent Topics</Text>
+          <Text style={[styles.sectionTitle, { color: theme.text }]}>{t('home.recentTopics')}</Text>
         </View>
 
         {recentTopics.length === 0 ? (
           <View style={[styles.emptyCard, { backgroundColor: theme.card }]}>
-            <Text style={{ color: theme.icon }}>No recent photos or schedules.</Text>
+            <Text style={{ color: theme.icon }}>{t('home.noRecentTopics')}</Text>
           </View>
         ) : (
           recentTopics.map(log => (
@@ -96,7 +100,7 @@ export default function HomeScreen() {
         style={[styles.viewAllButton, { borderColor: theme.border }]}
         onPress={() => router.push('/(tabs)/timeline')}
       >
-        <Text style={[styles.viewAllText, { color: theme.tint }]}>View Full Timeline</Text>
+        <Text style={[styles.viewAllText, { color: theme.tint }]}>{t('home.viewTimeline')}</Text>
         <IconSymbol name="chevron.right" size={16} color={theme.tint} />
       </TouchableOpacity>
 

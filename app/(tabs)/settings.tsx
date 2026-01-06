@@ -1,30 +1,37 @@
 import { IconSymbol } from '@/components/ui/icon-symbol';
 import { Colors } from '@/constants/theme';
 import { useColorScheme } from '@/hooks/use-color-scheme';
+import { LanguageType, useLanguageStore } from '@/store/languageStore';
 import { ThemeMode, useThemeStore } from '@/store/themeStore';
 import Constants from 'expo-constants';
+import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-
 
 export default function SettingsScreen() {
     const colorScheme = useColorScheme() ?? 'light';
     const theme = Colors[colorScheme];
     const { mode, setMode } = useThemeStore();
-
-    const handleModeSelect = (newMode: ThemeMode) => {
-        setMode(newMode);
-    };
+    const { language, setLanguage } = useLanguageStore();
+    const { t } = useTranslation();
 
     const modes: { label: string; value: ThemeMode; icon: string }[] = [
-        { label: 'Light', value: 'light', icon: 'lightbulb.fill' },
-        { label: 'Dark', value: 'dark', icon: 'moon.fill' },
-        { label: 'System', value: 'system', icon: 'gear' }, // Using gear as generic system icon
+        { label: t('settings.themes.light'), value: 'light', icon: 'lightbulb.fill' },
+        { label: t('settings.themes.dark'), value: 'dark', icon: 'moon.fill' },
+        { label: t('settings.themes.system'), value: 'system', icon: 'gear' },
+    ];
+
+    const languages: { label: string; value: LanguageType; icon: string }[] = [
+        { label: t('settings.languages.en'), value: 'en', icon: 'star.fill' },
+        { label: t('settings.languages.ja'), value: 'ja', icon: 'star.fill' },
+        { label: t('settings.languages.system'), value: 'system', icon: 'gear' },
     ];
 
     return (
         <ScrollView style={[styles.container, { backgroundColor: theme.background }]}>
+            {/* Theme Section */}
             <View style={styles.section}>
-                <Text style={[styles.sectionTitle, { color: theme.text }]}>Appearance</Text>
+                <Text style={[styles.sectionTitle, { color: theme.text }]}>{t('settings.theme')}</Text>
                 <View style={[styles.card, { backgroundColor: theme.card }]}>
                     {modes.map((m, index) => {
                         const isSelected = mode === m.value;
@@ -35,7 +42,7 @@ export default function SettingsScreen() {
                                     styles.option,
                                     { borderBottomWidth: index !== modes.length - 1 ? 1 : 0, borderColor: theme.border }
                                 ]}
-                                onPress={() => handleModeSelect(m.value)}
+                                onPress={() => setMode(m.value)}
                             >
                                 <View style={styles.optionLeft}>
                                     <IconSymbol name={m.icon as any} size={20} color={theme.icon} />
@@ -50,8 +57,38 @@ export default function SettingsScreen() {
                 </View>
             </View>
 
+            {/* Language Section */}
+            <View style={styles.section}>
+                <Text style={[styles.sectionTitle, { color: theme.text }]}>{t('settings.language')}</Text>
+                <View style={[styles.card, { backgroundColor: theme.card }]}>
+                    {languages.map((l, index) => {
+                        const isSelected = language === l.value;
+                        return (
+                            <TouchableOpacity
+                                key={l.value}
+                                style={[
+                                    styles.option,
+                                    { borderBottomWidth: index !== languages.length - 1 ? 1 : 0, borderColor: theme.border }
+                                ]}
+                                onPress={() => setLanguage(l.value)}
+                            >
+                                <View style={styles.optionLeft}>
+                                    <IconSymbol name={l.icon as any} size={20} color={theme.icon} />
+                                    <Text style={[styles.optionLabel, { color: theme.text }]}>{l.label}</Text>
+                                </View>
+                                {isSelected && (
+                                    <IconSymbol name="checkmark.circle.fill" size={20} color={theme.tint} />
+                                )}
+                            </TouchableOpacity>
+                        );
+                    })}
+                </View>
+            </View>
+
             <View style={styles.footer}>
-                <Text style={[styles.version, { color: theme.icon }]}>LifeLog v{Constants.expoConfig?.version ?? '1.0.0'}</Text>
+                <Text style={[styles.version, { color: theme.icon }]}>
+                    {t('settings.version')} v{Constants.expoConfig?.version ?? '1.0.0'}
+                </Text>
             </View>
         </ScrollView>
     );

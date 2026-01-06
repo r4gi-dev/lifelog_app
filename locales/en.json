@@ -1,0 +1,74 @@
+{
+    "tabs": {
+        "home": "Home",
+        "calendar": "Calendar",
+        "add": "Add Log",
+        "timeline": "Timeline",
+        "settings": "Settings"
+    },
+    "home": {
+        "weeklyActivity": "Weekly Activity",
+        "recentTopics": "Recent Topics",
+        "viewTimeline": "View Full Timeline",
+        "noRecentTopics": "No recent photos or schedules."
+    },
+    "calendar": {
+        "today": "Today",
+        "noLogs": "No logs for this day.",
+        "logCount": "{{count}} log",
+        "logCount_plural": "{{count}} logs"
+    },
+    "timeline": {
+        "searchPlaceholder": "Search logs...",
+        "clear": "Clear",
+        "noLogsFound": "No logs found.",
+        "adjustSearch": "Try adjusting your search or filters.",
+        "filter": {
+            "all": "All",
+            "task": "Tasks",
+            "schedule": "Schedule",
+            "photo": "Photos"
+        },
+        "today": "Today"
+    },
+    "add": {
+        "title": "Add New Log",
+        "selectType": "Select Type",
+        "logTitle": "Title",
+        "logTitlePlaceholder": "What happened?",
+        "description": "Description",
+        "descriptionPlaceholder": "Add more details...",
+        "date": "Date",
+        "selectDate": "Select Date",
+        "photo": "Photo",
+        "takePhoto": "Take Photo",
+        "choosePhoto": "Choose from Library",
+        "save": "Save Log",
+        "errorTitle": "Error",
+        "errorNoTitle": "Please enter a title.",
+        "errorSave": "Failed to save log."
+    },
+    "settings": {
+        "title": "Settings",
+        "theme": "Theme Mode",
+        "language": "Language",
+        "themes": {
+            "light": "Light",
+            "dark": "Dark",
+            "system": "System"
+        },
+        "languages": {
+            "en": "English",
+            "ja": "日本語",
+            "system": "System Default"
+        },
+        "version": "Version"
+    },
+    "common": {
+        "cancel": "Cancel",
+        "delete": "Delete",
+        "deleteConfirm": "Are you sure you want to delete this log?",
+        "ok": "OK",
+        "close": "Close"
+    }
+}

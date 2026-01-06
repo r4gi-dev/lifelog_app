@@ -1,0 +1,74 @@
+{
+    "tabs": {
+        "home": "ホーム",
+        "calendar": "カレンダー",
+        "add": "追加",
+        "timeline": "タイムライン",
+        "settings": "設定"
+    },
+    "home": {
+        "weeklyActivity": "週間の活動状況",
+        "recentTopics": "最近のトピック",
+        "viewTimeline": "すべての記録を見る",
+        "noRecentTopics": "最近の写真や予定はありません。"
+    },
+    "calendar": {
+        "today": "本日",
+        "noLogs": "この日の記録はありません。",
+        "logCount": "{{count}} 件の記録",
+        "logCount_plural": "{{count}} 件の記録"
+    },
+    "timeline": {
+        "searchPlaceholder": "ログを検索...",
+        "clear": "クリア",
+        "noLogsFound": "ログが見つかりませんでした。",
+        "adjustSearch": "検索ワードやフィルタを変えてみてください。",
+        "filter": {
+            "all": "すべて",
+            "task": "タスク",
+            "schedule": "予定",
+            "photo": "写真"
+        },
+        "today": "本日"
+    },
+    "add": {
+        "title": "新しい記録を追加",
+        "selectType": "タイプを選択",
+        "logTitle": "タイトル",
+        "logTitlePlaceholder": "何がありましたか？",
+        "description": "内容",
+        "descriptionPlaceholder": "詳細を入力できます...",
+        "date": "日付",
+        "selectDate": "日付を選択",
+        "photo": "写真",
+        "takePhoto": "写真を撮る",
+        "choosePhoto": "ライブラリから選択",
+        "save": "保存する",
+        "errorTitle": "エラー",
+        "errorNoTitle": "タイトルを入力してください。",
+        "errorSave": "保存に失敗しました。"
+    },
+    "settings": {
+        "title": "設定",
+        "theme": "テーマ設定",
+        "language": "言語設定",
+        "themes": {
+            "light": "ライト",
+            "dark": "ダーク",
+            "system": "システム設定"
+        },
+        "languages": {
+            "en": "English",
+            "ja": "日本語",
+            "system": "システム設定"
+        },
+        "version": "バージョン"
+    },
+    "common": {
+        "cancel": "キャンセル",
+        "delete": "削除",
+        "deleteConfirm": "この記録を削除してもよろしいですか？",
+        "ok": "OK",
+        "close": "閉じる"
+    }
+}

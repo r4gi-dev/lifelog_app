@@ -1,11 +1,14 @@
+import { ConfirmationModal } from '@/components/ConfirmationModal';
 import { IconSymbol } from '@/components/ui/icon-symbol';
 import { Colors } from '@/constants/theme';
 import { useColorScheme } from '@/hooks/use-color-scheme';
 import { useLifeLogStore } from '@/store';
 import { LifeLog, PhotoLog } from '@/types';
-import React from 'react';
-import { Alert, Image, Pressable, StyleSheet, Text, View } from 'react-native';
+import React, { useState } from 'react';
+import { Image, Pressable, StyleSheet, Text, View } from 'react-native';
 import Animated, { FadeInDown } from 'react-native-reanimated';
+
+import { useTranslation } from 'react-i18next';
 
 interface LogCardProps {
     log: LifeLog;
@@ -17,6 +20,8 @@ export function LogCard({ log }: LogCardProps) {
     const isPhoto = log.type === 'photo';
     const photoLog = log as PhotoLog;
     const { removeLog } = useLifeLogStore();
+    const { t } = useTranslation();
+    const [isDeleteModalVisible, setIsDeleteModalVisible] = useState(false);
 
     const typeColor = theme.types[log.type];
 
@@ -29,51 +34,58 @@ export function LogCard({ log }: LogCardProps) {
     };
 
     const handleDelete = () => {
-        Alert.alert(
-            "Delete Log",
-            "Are you sure you want to delete this log?",
-            [
-                { text: "Cancel", style: "cancel" },
-                { text: "Delete", style: "destructive", onPress: () => removeLog(log.id) }
-            ]
-        );
+        setIsDeleteModalVisible(true);
     };
 
     return (
-        <Animated.View
-            entering={FadeInDown.springify().damping(15)}
-            style={[styles.cardShadow, { shadowColor: theme.text }]}
-        >
-            <Pressable
-                onLongPress={handleDelete}
-                style={({ pressed }) => [
-                    styles.card,
-                    { backgroundColor: theme.card, opacity: pressed ? 0.9 : 1 }
-                ]}
+        <>
+            <ConfirmationModal
+                isVisible={isDeleteModalVisible}
+                title={t('common.delete')}
+                message={t('common.deleteConfirm')}
+                confirmText={t('common.delete')}
+                cancelText={t('common.cancel')}
+                onConfirm={() => {
+                    removeLog(log.id);
+                    setIsDeleteModalVisible(false);
+                }}
+                onCancel={() => setIsDeleteModalVisible(false)}
+            />
+            <Animated.View
+                entering={FadeInDown.springify().damping(15)}
+                style={[styles.cardShadow, { shadowColor: theme.text }]}
             >
-                <View style={styles.header}>
-                    <View style={styles.badgeContainer}>
-                        <View style={[styles.iconBadge, { backgroundColor: typeColor }]}>
-                            <IconSymbol size={14} name={getIcon()} color="#FFF" />
+                <Pressable
+                    onLongPress={handleDelete}
+                    style={({ pressed }) => [
+                        styles.card,
+                        { backgroundColor: theme.card, opacity: pressed ? 0.9 : 1 }
+                    ]}
+                >
+                    <View style={styles.header}>
+                        <View style={styles.badgeContainer}>
+                            <View style={[styles.iconBadge, { backgroundColor: typeColor }]}>
+                                <IconSymbol size={14} name={getIcon()} color="#FFF" />
+                            </View>
+                            <Text style={[styles.typeText, { color: typeColor }]}>{log.type.toUpperCase()}</Text>
                         </View>
-                        <Text style={[styles.typeText, { color: typeColor }]}>{log.type.toUpperCase()}</Text>
+                        <Text style={[styles.time, { color: theme.icon }]}>
+                            {log.date}
+                        </Text>
                     </View>
-                    <Text style={[styles.time, { color: theme.icon }]}>
-                        {log.date}
-                    </Text>
-                </View>
 
-                <Text style={[styles.title, { color: theme.text }]}>{log.title}</Text>
+                    <Text style={[styles.title, { color: theme.text }]}>{log.title}</Text>
 
-                {log.description ? (
-                    <Text style={[styles.description, { color: theme.icon }]}>{log.description}</Text>
-                ) : null}
+                    {log.description ? (
+                        <Text style={[styles.description, { color: theme.icon }]}>{log.description}</Text>
+                    ) : null}
 
-                {isPhoto && photoLog.uri && (
-                    <Image source={{ uri: photoLog.uri }} style={styles.image} />
-                )}
-            </Pressable>
-        </Animated.View>
+                    {isPhoto && photoLog.uri && (
+                        <Image source={{ uri: photoLog.uri }} style={styles.image} />
+                    )}
+                </Pressable>
+            </Animated.View>
+        </>
     );
 }
 

@@ -2,25 +2,32 @@ import { Colors } from '@/constants/theme';
 import { useColorScheme } from '@/hooks/use-color-scheme';
 import { LifeLogType } from '@/types';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { ScrollView, StyleSheet, Text, TouchableOpacity } from 'react-native';
 
 export type FilterType = LifeLogType | 'all';
 
-interface FilterChipsProps {
-    selected: FilterType;
-    onSelect: (type: FilterType) => void;
+interface FilterOption {
+    label: string;
+    value: FilterType;
 }
 
-export const FILTER_OPTIONS: { label: string; value: FilterType }[] = [
+const FILTER_OPTIONS: FilterOption[] = [
     { label: 'All', value: 'all' },
     { label: 'Tasks', value: 'task' },
     { label: 'Schedule', value: 'schedule' },
     { label: 'Photos', value: 'photo' },
 ];
 
+interface FilterChipsProps {
+    selected: FilterType;
+    onSelect: (type: FilterType) => void;
+}
+
 export function FilterChips({ selected, onSelect }: FilterChipsProps) {
     const colorScheme = useColorScheme() ?? 'light';
     const theme = Colors[colorScheme];
+    const { t } = useTranslation();
 
     return (
         <ScrollView
@@ -49,7 +56,7 @@ export function FilterChips({ selected, onSelect }: FilterChipsProps) {
                             styles.label,
                             { color: textColor }
                         ]}>
-                            {opt.label}
+                            {t(`timeline.filter.${opt.value}`)}
                         </Text>
                     </TouchableOpacity>
                 );
@@ -60,16 +67,17 @@ export function FilterChips({ selected, onSelect }: FilterChipsProps) {
 
 const styles = StyleSheet.create({
     container: {
-        flexDirection: 'row',
-        gap: 8,
         paddingHorizontal: 16,
-        paddingBottom: 12,
+        paddingBottom: 8,
+        gap: 8,
     },
     chip: {
-        paddingVertical: 8,
         paddingHorizontal: 16,
+        paddingVertical: 8,
         borderRadius: 20,
         borderWidth: 1,
+        minWidth: 70,
+        alignItems: 'center',
     },
     label: {
         fontSize: 14,

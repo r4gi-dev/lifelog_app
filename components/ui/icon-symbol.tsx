@@ -18,6 +18,7 @@ const MAPPING = {
   'plus.circle.fill': 'add-circle',
   'checkmark.circle.fill': 'check-circle',
   'calendar': 'calendar-today',
+  'calendar.fill': 'calendar-today',
   'photo.fill': 'image',
   'camera.fill': 'camera-alt',
   'checkmark.circle': 'check-circle-outline',
@@ -29,7 +30,8 @@ const MAPPING = {
   'moon.fill': 'brightness-3', // Crescent moon
   'lightbulb.fill': 'lightbulb',
   'magnifyingglass': 'search',
-} as const; // Changed to 'as const' for type inference, assuming IconMapping is not explicitly defined elsewhere.
+  'xmark': 'close',
+} as const;
 
 export type IconSymbolName = keyof typeof MAPPING;
 

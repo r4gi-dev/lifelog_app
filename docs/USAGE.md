@@ -1,41 +1,36 @@
-# LifeLog App User Guide 📖
+# LifeLog - User Guide
 
-Welcome to **LifeLog**, your personal activity tracker. This guide will help you get the most out of the app.
+Welcome to **LifeLog**! This guide will help you get the most out of your personal logging app.
 
 ## 🏠 Home Dashboard
-The **Home** tab is your central hub.
-- **Weekly Activity**: A bar chart showing how many logs you've created over the last 7 days.
-- **Recent Topics**: A scrollable list of your most recent Photos and Schedule items.
-- **Navigation**: Use the bottom tab bar to switch between Home, Timeline, Add Log, and Settings.
+The **Home** tab gives you a quick overview of your life.
+- **Weekly Activity**: A bar chart showing how many logs you've created each day over the last week.
+- **Recent Topics**: Your most recent photos and scheduled events for quick access.
+- **Quick Navigation**: Tap "View Full Timeline" to see your entire history.
 
 ## 📅 Timeline
 The **Timeline** tab displays all your logs in chronological order.
-- **Grouping**: Logs are grouped by day (Today, Yesterday, etc.).
-- **Log Types**:
-    - **📝 Task**: To-do items or completed actions.
-    - **📅 Schedule**: Appointments or future events.
-    - **📷 Photo**: Memories captured with your camera or gallery.
+- **Search**: Supports real-time search by title or description.
+- **Filter**: Use chips at the top to filter by log type (Task, Schedule, Photo).
+- **Delete**: *Long-press* any log card to delete it.
+
+## 🗓️ Calendar
+The **Calendar** tab provides a monthly view of your activities.
+- **Indicators**: Days with logs are marked with a dot.
+- **Day View**: Tap a date to see the logs for that specific day in the list below.
 
 ## ➕ Adding a Log
-1.  Tap the **+** (Add) tab in the center of the bottom bar.
-2.  Select the **Type** of log you want to create (Task, Schedule, Photo).
-3.  Fill in the details:
-    - **Title**: What happened? (Required)
-    - **Description**: Add more context (Optional).
-    - **Date**: Defaults to now, but you can change it for past/future entries.
-    - **Photo**: If adding a photo, tap the dashed area to select an image.
-4.  Tap **Save Log**.
+1.  Tap the **+** tab in the center.
+2.  Select the **Type** (Task, Schedule, Photo).
+3.  Set the **Date** (defaults to today).
+4.  Enter a **Title** and **Description**.
+5.  (Optional) For **Photos**, tap the placeholder to choose an image from your library.
+6.  Tap **Save Log**.
 
 ## ⚙️ Settings
-Customize your experience in the **Settings** tab.
-- **Appearance**: Choose between **Light**, **Dark**, or **System** theme. The app will automatically save your preference.
-- **Version**: Check the current installed version of the app.
+- **Theme**: Switch between **Light**, **Dark**, or **System**.
+- **Language**: Switch between **English**, **日本語**, or **System Default**.
+- **Version**: Check the current app version.
 
 ## 🗑 Managing Data
-- **Delete a Log**: *Long-press* on any log card in the Timeline or Home view to delete it. A confirmation dialog will appear.
-
-## ☁️ Backup & Privacy
-- **Offline First**: All data is stored locally on your device.
-- **Privacy**: No data is sent to the cloud. You are in complete control.
-
-## Tset
+- **Delete**: Long-press any card in the Timeline or Home views and confirm the deletion.

@@ -6,12 +6,14 @@ import { useColorScheme } from '@/hooks/use-color-scheme';
 import { useLifeLogStore } from '@/store';
 import { LifeLog } from '@/types';
 import React, { useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { SectionList, StatusBar, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 
 export default function TimelineScreen() {
     const logs = useLifeLogStore((state) => state.logs);
     const colorScheme = useColorScheme() ?? 'light';
     const theme = Colors[colorScheme];
+    const { t } = useTranslation();
 
     const [searchQuery, setSearchQuery] = useState('');
     const [filterType, setFilterType] = useState<FilterType>('all');
@@ -56,14 +58,14 @@ export default function TimelineScreen() {
                     <IconSymbol name="magnifyingglass" size={20} color={theme.icon} />
                     <TextInput
                         style={[styles.searchInput, { color: theme.text }]}
-                        placeholder="Search logs..."
+                        placeholder={t('timeline.searchPlaceholder')}
                         placeholderTextColor={theme.icon}
                         value={searchQuery}
                         onChangeText={setSearchQuery}
                     />
                     {searchQuery.length > 0 && (
                         <TouchableOpacity onPress={() => setSearchQuery('')}>
-                            <Text style={{ color: theme.tint, fontWeight: '600' }}>Clear</Text>
+                            <Text style={{ color: theme.tint, fontWeight: '600' }}>{t('timeline.clear')}</Text>
                         </TouchableOpacity>
                     )}
                 </View>
@@ -75,9 +77,8 @@ export default function TimelineScreen() {
                 keyExtractor={(item) => item.id}
                 renderItem={({ item }) => <LogCard log={item} />}
                 renderSectionHeader={({ section: { title } }) => {
-                    const dateObj = new Date(title);
                     const isToday = title === new Date().toISOString().split('T')[0];
-                    const displayTitle = isToday ? 'Today' : title;
+                    const displayTitle = isToday ? t('timeline.today') : title;
 
                     return (
                         <View style={[styles.sectionHeader, { backgroundColor: theme.background }]}>
@@ -89,8 +90,8 @@ export default function TimelineScreen() {
                 stickySectionHeadersEnabled={false}
                 ListEmptyComponent={
                     <View style={styles.emptyContainer}>
-                        <Text style={[styles.emptyText, { color: theme.text }]}>No logs found.</Text>
-                        <Text style={[styles.emptySubText, { color: theme.icon }]}>Try adjusting your search or filters.</Text>
+                        <Text style={[styles.emptyText, { color: theme.text }]}>{t('timeline.noLogsFound')}</Text>
+                        <Text style={[styles.emptySubText, { color: theme.icon }]}>{t('timeline.adjustSearch')}</Text>
                     </View>
                 }
             />
