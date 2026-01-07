@@ -5,7 +5,8 @@ import { useLifeLogStore } from '@/store';
 import React, { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { FlatList, SafeAreaView, StatusBar, StyleSheet, Text, View } from 'react-native';
-import { Calendar } from 'react-native-calendars';
+import { Calendar, DateData } from 'react-native-calendars';
+import { MarkedDates } from 'react-native-calendars/src/types';
 
 export default function CalendarScreen() {
     const logs = useLifeLogStore((state) => state.logs);
@@ -18,7 +19,7 @@ export default function CalendarScreen() {
 
     // Map logs to calendar points
     const markedDates = useMemo(() => {
-        const marks: any = {};
+        const marks: MarkedDates = {};
         logs.forEach((log) => {
             if (!marks[log.date]) {
                 marks[log.date] = {
@@ -69,7 +70,7 @@ export default function CalendarScreen() {
                         textDayHeaderFontWeight: '600',
                     }}
                     markedDates={markedDates}
-                    onDayPress={(day: any) => setSelectedDate(day.dateString)}
+                    onDayPress={(day: DateData) => setSelectedDate(day.dateString)}
                     enableSwipeMonths={true}
                 />
             </View>

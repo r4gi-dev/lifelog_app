@@ -54,7 +54,7 @@ export function ConfirmationModal({
                             { backgroundColor: type === 'danger' ? '#FF3B3015' : theme.tint + '15' }
                         ]}>
                             <IconSymbol
-                                name={type === 'danger' ? 'checkmark.circle.fill' : 'gear'}
+                                name={type === 'danger' ? 'exclamationmark.triangle.fill' : 'gear'}
                                 size={28}
                                 color={type === 'danger' ? '#FF3B30' : theme.tint}
                             />

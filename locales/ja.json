@@ -46,6 +46,7 @@
         "save": "保存する",
         "errorTitle": "エラー",
         "errorNoTitle": "タイトルを入力してください。",
+        "errorNoPhoto": "写真を選択してください。",
         "errorSave": "保存に失敗しました。"
     },
     "settings": {

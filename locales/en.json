@@ -46,6 +46,7 @@
         "save": "Save Log",
         "errorTitle": "Error",
         "errorNoTitle": "Please enter a title.",
+        "errorNoPhoto": "Please select a photo.",
         "errorSave": "Failed to save log."
     },
     "settings": {

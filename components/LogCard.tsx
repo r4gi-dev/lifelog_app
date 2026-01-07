@@ -19,15 +19,26 @@ export function LogCard({ log }: LogCardProps) {
     const theme = Colors[colorScheme];
     const isPhoto = log.type === 'photo';
     const photoLog = log as PhotoLog;
-    const { removeLog } = useLifeLogStore();
+    const { removeLog, toggleLogStatus } = useLifeLogStore();
     const { t } = useTranslation();
     const [isDeleteModalVisible, setIsDeleteModalVisible] = useState(false);
 
     const typeColor = theme.types[log.type];
 
+    const getStatusConfig = (status: LifeLog['status']) => {
+        switch (status) {
+            case 'todo': return { label: t('status.todo'), color: '#8E8E93' };
+            case 'in_progress': return { label: t('status.in_progress'), color: theme.tint };
+            case 'completed': return { label: t('status.completed'), color: '#34C759' };
+            default: return { label: '', color: '#8E8E93' };
+        }
+    };
+
+    const statusConfig = getStatusConfig(log.status);
+
     const getIcon = () => {
         switch (log.type) {
-            case 'task': return 'checkmark.circle.fill';
+            case 'task': return log.status === 'completed' ? 'checkmark.circle.fill' : 'plus.circle.fill';
             case 'schedule': return 'calendar';
             case 'photo': return 'photo.fill';
         }
@@ -35,6 +46,12 @@ export function LogCard({ log }: LogCardProps) {
 
     const handleDelete = () => {
         setIsDeleteModalVisible(true);
+    };
+
+    const handleToggleStatus = () => {
+        if (log.type !== 'photo') {
+            toggleLogStatus(log.id);
+        }
     };
 
     return (
@@ -57,6 +74,7 @@ export function LogCard({ log }: LogCardProps) {
             >
                 <Pressable
                     onLongPress={handleDelete}
+                    onPress={handleToggleStatus}
                     style={({ pressed }) => [
                         styles.card,
                         { backgroundColor: theme.card, opacity: pressed ? 0.9 : 1 }
@@ -68,16 +86,32 @@ export function LogCard({ log }: LogCardProps) {
                                 <IconSymbol size={14} name={getIcon()} color="#FFF" />
                             </View>
                             <Text style={[styles.typeText, { color: typeColor }]}>{log.type.toUpperCase()}</Text>
+
+                            {log.status && (
+                                <View style={[styles.statusBadge, { backgroundColor: statusConfig.color + '20' }]}>
+                                    <Text style={[styles.statusText, { color: statusConfig.color }]}>
+                                        {statusConfig.label}
+                                    </Text>
+                                </View>
+                            )}
                         </View>
                         <Text style={[styles.time, { color: theme.icon }]}>
                             {log.date}
                         </Text>
                     </View>
 
-                    <Text style={[styles.title, { color: theme.text }]}>{log.title}</Text>
+                    <Text style={[
+                        styles.title,
+                        { color: theme.text },
+                        log.status === 'completed' && { textDecorationLine: 'line-through', opacity: 0.6 }
+                    ]}>{log.title}</Text>
 
                     {log.description ? (
-                        <Text style={[styles.description, { color: theme.icon }]}>{log.description}</Text>
+                        <Text style={[
+                            styles.description,
+                            { color: theme.icon },
+                            log.status === 'completed' && { opacity: 0.5 }
+                        ]}>{log.description}</Text>
                     ) : null}
 
                     {isPhoto && photoLog.uri && (
@@ -121,6 +155,15 @@ const styles = StyleSheet.create({
         fontSize: 11,
         fontWeight: '700',
         letterSpacing: 0.5,
+    },
+    statusBadge: {
+        paddingHorizontal: 8,
+        paddingVertical: 2,
+        borderRadius: 6,
+    },
+    statusText: {
+        fontSize: 10,
+        fontWeight: '600',
     },
     time: {
         fontSize: 12,

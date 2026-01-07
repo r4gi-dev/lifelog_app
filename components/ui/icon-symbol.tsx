@@ -31,6 +31,7 @@ const MAPPING = {
   'lightbulb.fill': 'lightbulb',
   'magnifyingglass': 'search',
   'xmark': 'close',
+  'exclamationmark.triangle.fill': 'warning',
 } as const;
 
 export type IconSymbolName = keyof typeof MAPPING;

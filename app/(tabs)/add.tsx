@@ -32,8 +32,19 @@ export default function AddLogScreen() {
             return;
         }
         if (type === 'photo' && !imageUri) {
-            Alert.alert(t('add.errorTitle'), t('add.photo')); // Select photo
+            Alert.alert(t('add.errorTitle'), t('add.errorNoPhoto'));
             return;
+        }
+
+        const today = new Date().toISOString().split('T')[0];
+        let initialStatus: LifeLog['status'] = 'todo';
+
+        if (type === 'photo') {
+            initialStatus = 'completed';
+        } else if (date === today) {
+            initialStatus = 'in_progress';
+        } else if (date < today) {
+            initialStatus = 'completed'; // Past tasks are considered completed by default or just markers
         }
 
         const newLog: LifeLog = {
@@ -43,6 +54,7 @@ export default function AddLogScreen() {
             description,
             date,
             createdAt: new Date().toISOString(),
+            status: initialStatus,
             ...(type === 'photo' ? { uri: imageUri } : {}),
         } as LifeLog;
 

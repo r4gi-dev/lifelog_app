@@ -1,4 +1,5 @@
 export type LifeLogType = 'task' | 'schedule' | 'photo';
+export type LifeLogStatus = 'todo' | 'in_progress' | 'completed';
 
 export interface LifeLog {
   id: string;
@@ -7,6 +8,7 @@ export interface LifeLog {
   description?: string;
   date: string;        // ISO8601 (YYYY-MM-DD)
   createdAt: string;  // ISO8601
+  status?: LifeLogStatus;
 }
 
 export interface PhotoLog extends LifeLog {

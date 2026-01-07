@@ -19,7 +19,8 @@ export const useLanguageStore = create<LanguageState>()(
             getEffectiveLanguage: () => {
                 const { language } = get();
                 if (language === 'system') {
-                    const locale = Localization.getLocales()[0].languageCode;
+                    const locales = Localization.getLocales();
+                    const locale = locales && locales.length > 0 ? locales[0].languageCode : 'en';
                     return locale === 'ja' ? 'ja' : 'en';
                 }
                 return language;
